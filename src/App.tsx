@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
-import day01 from './days/01'
+import day01 from './days/1'
 
 const puzzles: Record<string,  ((input: string) => Promise<string | number>)[]> = {
   '1': day01
