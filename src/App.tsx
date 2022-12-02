@@ -1,15 +1,26 @@
+import React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
-import day01 from './days/1'
+import day1 from './days/1'
+import day2 from './days/2'
 
 const puzzles: Record<string,  ((input: string) => Promise<string | number>)[]> = {
-  '1': day01
+  '1': day1,
+  '2': day2,
 }
 
 function App () {
+  const initialValue: [ string, number ] = window.location.href.includes('puzzle')
+    ? (window.location.href
+      .split('#')[ 1 ]
+      .replace('puzzle=', '')
+      .split('.')
+      .map((str, i) => i !== 0 ? parseInt(str) : str)) as [ string, number ]
+    : [ '1', 0 ]
+
   const [ isLoading, setIsLoading ] = useState(true)
-  const [ currentPuzzle, setCurrentPuzzle ] = useState<[ string, number ]>([ '1', 0 ])
+  const [ currentPuzzle, setCurrentPuzzle ] = useState<[ string, number ]>(initialValue)
   const [ puzzleInput, setPuzzleInput ] = useState('')
   const [ puzzleOutput, setPuzzleOutput ] = useState('')
   const [ execError, setExecError ] = useState('')
@@ -60,10 +71,17 @@ function App () {
           onChange={(evt) => {
             const parts = evt.target.value.split('.')
             setCurrentPuzzle([ parts[0], parseInt(parts[1]) ])
+            window.location.href = `#puzzle=${parts[0] + '.' + parts[1]}`
           }}
         >
-          <option value='1.0'>Dec 1 - Puzzle 1</option>
-          <option value='1.1'>Dec 1 - Puzzle 2</option>
+          {
+            Object.keys(puzzles).map((day, index) => (
+              <React.Fragment key={index}>
+                <option value={`${day}.0`}>Dec {day} - Puzzle 1</option>
+                <option value={`${day}.1`}>Dec {day} - Puzzle 2</option>
+              </React.Fragment>
+            ))
+          }
         </select>
       </div>
 
