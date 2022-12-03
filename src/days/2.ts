@@ -46,30 +46,30 @@ const MoveStrategies: Record<MovePair[ 0 ], Record<MovePair[ 1 ], MovePair[ 1 ]>
 }
 
 async function puzzle1 (input: string): Promise<number> {
-    const strategyGuide: MovePair[] = input
+    return input
         .split('\n')
         .map((str: string) => str.trim().split(' ') as MovePair)
-
-    return strategyGuide
-        .reduce((acc: number, moves: MovePair) => {
-            acc += MoveValues[ moves[ 1 ] ]
-            acc += MoveOutcomes[ moves[ 0 ] ][ moves[ 1 ] ]
-            return acc
-        }, 0)
+        .reduce(
+            (acc: number, moves: MovePair) => {
+                acc += MoveValues[ moves[ 1 ] ]
+                acc += MoveOutcomes[ moves[ 0 ] ][ moves[ 1 ] ]
+                return acc
+            }, 0
+        )
 }
 
 async function puzzle2 (input: string): Promise<number> {
-    const strategyGuide: MovePair[] = input
+    return input
         .split('\n')
         .map((str: string) => str.trim().split(' ') as MovePair)
-
-    return strategyGuide
-        .reduce((acc: number, moves: MovePair) => {
-            const myMove = MoveStrategies[ moves[ 0 ] ][ moves[ 1 ] ]
-            acc += MoveValues[ myMove ]
-            acc += MoveOutcomes[ moves[ 0 ] ][ myMove ]
-            return acc
-        }, 0)
+        .reduce(
+            (acc: number, moves: MovePair) => {
+                const myMove = MoveStrategies[ moves[ 0 ] ][ moves[ 1 ] ]
+                acc += MoveValues[ myMove ]
+                acc += MoveOutcomes[ moves[ 0 ] ][ myMove ]
+                return acc
+            }, 0
+        )
 }
 
 export default [
