@@ -22,14 +22,12 @@ async function puzzle1 (input: string): Promise<number> {
 }
 
 async function puzzle2 (input: string): Promise<number> {
-    const elves = getCaloriesPerElf(input)
-
-    let calories = 0
-    for (let i = 0; i < 3; i++) {
-        calories += elves[ i ]
-    }
-
-    return calories
+    return getCaloriesPerElf(input)
+        .slice(0, 3)
+        .reduce(
+            (totalCalories: number, calories: number) => 
+                totalCalories + calories, 0
+        )
 }
 
 export default [
