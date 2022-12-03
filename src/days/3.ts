@@ -34,8 +34,40 @@ async function puzzle1 (input: string): Promise<number> {
         )
 }
 
+function findGroupBadge (rucksacks: string[]) {
+    const itemsInRucksacks = rucksacks
+        .map((rucksack: string) => rucksack.split(''))
+
+    return [
+        ...new Set(
+            itemsInRucksacks[ 0 ]
+                .filter((item) => 
+                    itemsInRucksacks[ 1 ].indexOf(item) > -1 && 
+                    itemsInRucksacks[ 2 ].indexOf(item) > -1
+                )
+        )
+    ]
+}
+
 async function puzzle2 (input: string): Promise<number> {
-    return -1
+    const rucksacks = input
+        .split('\n')
+        .map((item: string) => item.trim())
+
+    const groupsOfElves = []
+    for (let i = 0; i < rucksacks.length; i += 3) {
+        groupsOfElves.push(rucksacks.slice(i, i + 3))
+    }
+
+    return groupsOfElves
+        .reduce(
+            (badges: string[], group: string[]) => 
+                [ ...badges, ...findGroupBadge(group) ], []
+        )
+        .reduce(
+            (value: number, item: string) => 
+                value + itemWeight(item), 0
+        )
 }
 
 export default [
