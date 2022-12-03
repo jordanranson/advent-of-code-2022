@@ -4,10 +4,12 @@ import './App.css'
 
 import day1 from './days/1'
 import day2 from './days/2'
+import day3 from './days/3'
 
 const puzzles: Record<string,  ((input: string) => Promise<string | number>)[]> = {
   '1': day1,
   '2': day2,
+  '3': day3,
 }
 
 function App () {
