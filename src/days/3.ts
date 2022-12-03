@@ -23,10 +23,10 @@ function itemWeight (item: string) {
 async function puzzle1 (input: string): Promise<number> {
     return input
         .split('\n')
-        .map((str: string) => str.trim())
+        .map((item: string) => item.trim())
         .reduce(
-            (acc: string[], rucksack: string) => 
-                [ ...acc, ...findUnsortedItems(rucksack) ], []
+            (unsortedItems: string[], rucksack: string) => 
+                [ ...unsortedItems, ...findUnsortedItems(rucksack) ], []
         )
         .reduce(
             (value: number, item: string) => 
