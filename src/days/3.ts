@@ -1,3 +1,5 @@
+import { Puzzle } from "../App"
+
 function findUnsortedItems (rucksack: string) {
     const items = rucksack.split('')
 
@@ -73,4 +75,4 @@ async function puzzle2 (input: string): Promise<number> {
 export default [
     puzzle1,
     puzzle2
-]
+] as Puzzle

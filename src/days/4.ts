@@ -1,3 +1,5 @@
+import { Puzzle } from "../App"
+
 function getRangesInPair (input: string) {
     return input
         .split(',')
@@ -44,4 +46,4 @@ async function puzzle2 (input: string): Promise<number> {
 export default [
     puzzle1,
     puzzle2
-]
+] as Puzzle

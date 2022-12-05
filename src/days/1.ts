@@ -1,3 +1,5 @@
+import { Puzzle } from "../App"
+
 function getCaloriesPerElf (input: string) {
     const snacks = input
         .split('\n')
@@ -33,4 +35,4 @@ async function puzzle2 (input: string): Promise<number> {
 export default [
     puzzle1,
     puzzle2
-]
+] as Puzzle

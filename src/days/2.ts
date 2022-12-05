@@ -1,3 +1,5 @@
+import { Puzzle } from "../App"
+
 type MovePair = [ 
     'A' | 'B' | 'C', 
     'X' | 'Y' | 'Z'
@@ -75,4 +77,4 @@ async function puzzle2 (input: string): Promise<number> {
 export default [
     puzzle1,
     puzzle2
-]
+] as Puzzle

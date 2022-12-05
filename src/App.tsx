@@ -6,12 +6,22 @@ import day1 from './days/1'
 import day2 from './days/2'
 import day3 from './days/3'
 import day4 from './days/4'
+import day5 from './days/5'
 
-const puzzles: Record<string,  ((input: string) => Promise<string | number>)[]> = {
+export type Puzzle = [
+  puzzle1: (input: string) => Promise<string | number>,
+  puzzle2: (input: string) => Promise<string | number>,
+  options?: {
+    dontTrimInput?: boolean
+  }
+]
+
+const puzzles: Record<string, Puzzle> = {
   '1': day1,
   '2': day2,
   '3': day3,
   '4': day4,
+  '5': day5,
 }
 
 function App () {
@@ -38,7 +48,16 @@ function App () {
     startTimeRef.current = performance.now()
     
     try {
-      const output = await puzzles[currentPuzzle[0]][currentPuzzle[1]](input.trim())
+      const [
+        puzzle1,
+        puzzle2,
+        options,
+      ] = puzzles[currentPuzzle[0]]
+
+      const puzzleResolver = currentPuzzle[1] === 0 ? puzzle1 : puzzle2
+      const puzzleInput = options?.dontTrimInput ? input : input.trim()
+      const output = await puzzleResolver(puzzleInput)
+
       setPuzzleOutput(output.toString())
     } catch (err: any) {
       console.error(err)
